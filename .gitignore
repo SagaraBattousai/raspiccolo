@@ -1,0 +1,45 @@
+# Vim Ignore
+*.swp
+vim_sessions/
+
+# visualStudios
+*.vs
+
+#Project specific
+docs/sphinx/_static/css/_*
+
+# Distribution / packaging
+build/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
