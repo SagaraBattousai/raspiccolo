@@ -26,7 +26,7 @@ add_doxygen_docs(
   GENERATE_MAN
   JAVADOC_BANNER
   TARGETS
-  pwm)
+  raspiccolo_pwm)
 
 add_sphinx_docs(
   Sphinx_raspiccolo

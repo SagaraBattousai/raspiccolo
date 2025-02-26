@@ -5,6 +5,9 @@ vim_sessions/
 # visualStudios
 *.vs
 
+# VS Code
+.vscode/*
+
 #Project specific
 docs/sphinx/_static/css/_*
 
