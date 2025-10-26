@@ -1,5 +1,4 @@
-#include <math.h>
-
+#include <pico/float.h>
 #include <hardware/pwm.h>
 #include <hardware/clocks.h>
 
@@ -8,7 +7,7 @@
 //As values are required to be in 16'ths
 //#define HEX_SCALE 16 //think of a better name
 #define MAX_BYTES 65536 //think of a better name
-#define CLOCK_DIVIDER 4096.0f
+static const float CLOCK_DIVIDER = 4096.f;
 
 //pwm_set_clkdiv_int_frac(slice_num, 38, 3);
 
@@ -25,7 +24,8 @@
 void set_pwm_freq(unsigned freq, pwm_pin_t *pwm_pin) {
     // Set clock divisor to allow maximum level/duty (i.e. increasing resolution)
     uint32_t base_clk = clock_get_hz(clk_sys);
-    unsigned divider = (unsigned) ceil(base_clk / (CLOCK_DIVIDER * freq));
+    uint32_t divider = float2uint(ceilf(base_clk / (CLOCK_DIVIDER * freq))); //Don't need _z as always +ve so -inf is fine
+    // ^^ is it faster though?
     
     float new_clk = base_clk / (divider / 16.0f);
     
