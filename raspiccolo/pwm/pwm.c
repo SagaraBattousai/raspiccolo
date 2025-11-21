@@ -4,38 +4,26 @@
 
 #include <raspiccolo/pwm/pwm.h>
 
-//As values are required to be in 16'ths
-//#define HEX_SCALE 16 //think of a better name
-#define MAX_BYTES 65536 //think of a better name
 static const float CLOCK_DIVIDER = 4096.f;
 
-//pwm_set_clkdiv_int_frac(slice_num, 38, 3);
-
-//pwm_set_wrap(slice_num, 65465);
-
-//pwm_set_chan_level(slice_num, chan, 65465/2);
-
-//pwm_set_enabled(slice_num, true);
-
-//gpio_set_function(PWM_GPIO, GPIO_FUNC_PWM);
-//uint slice_num = pwm_gpio_to_slice_num(PWM_GPIO);
-//uint chan = pwm_gpio_to_channel(PWM_GPIO);
-
-void set_pwm_freq(unsigned freq, pwm_pin_t *pwm_pin) {
+void set_pwm_freq(uint freq, pwm_pin_t *pwm_pin) {
     // Set clock divisor to allow maximum level/duty (i.e. increasing resolution)
     uint32_t base_clk = clock_get_hz(clk_sys);
-    uint32_t divider = float2uint(ceilf(base_clk / (CLOCK_DIVIDER * freq))); //Don't need _z as always +ve so -inf is fine
+    uint32_t divider_16ths = float2uint(
+        ceilf(base_clk / (CLOCK_DIVIDER * freq))
+    ); 
+    //Don't need _z as always +ve so -inf is fine
     // ^^ is it faster though?
     
-    float new_clk = base_clk / (divider / 16.0f);
+    float div_clk = base_clk / (divider_16ths / 16.f);
     
-    uint8_t div_frac = divider & 0x0F;
-    uint8_t div_int = divider >> 4;
+    uint8_t div_frac = divider_16ths & 0x0F; // 16ths_remainder
+    uint8_t div_int = divider_16ths >> 4; 
 
     pwm_set_clkdiv_int_frac(pwm_pin->slice_num, div_int, div_frac);
 
     //Warning to myself, dangerous to set to struct first as not "officially" set yet.
-    pwm_pin->wrap = (uint16_t)((new_clk / freq) - 1);
+    pwm_pin->wrap = ((uint16_t)(div_clk / freq)) - 1;
     pwm_set_wrap(pwm_pin->slice_num, pwm_pin->wrap);
 }
 

@@ -1,3 +1,6 @@
+# Clangd
+.cache/
+
 # Vim Ignore
 *.swp
 vim_sessions/
@@ -13,6 +16,7 @@ docs/sphinx/_static/css/_*
 
 # Distribution / packaging
 build/
+manual_build/
 
 # Prerequisites
 *.d
