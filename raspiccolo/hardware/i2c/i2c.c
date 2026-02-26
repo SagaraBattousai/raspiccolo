@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright © 2025-2026 James Calo
+
 
 #include <raspiccolo/i2c/i2c.h>
 

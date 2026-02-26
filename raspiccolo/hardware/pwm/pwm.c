@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright © 2025-2026 James Calo
+
 #include <pico/float.h>
 #include <hardware/pwm.h>
 #include <hardware/clocks.h>

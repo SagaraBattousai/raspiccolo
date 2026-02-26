@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright © 2025-2026 James Calo
+
 #ifndef __RASPICCOLO_PWM_H__
 #define __RASPICCOLO_PWM_H__
 
